@@ -6,16 +6,19 @@ const Token = require('./state-graph').token;
 const Keywords = require('./state-graph').keywords;
 
 class Parser{
-    static parseCi(source,method){
+    static parseCi(source,method,callback){
         let tagStateTransform = new StateTransform(Token,method);
+        let result = '';
 
         for(let i=0,j=0;i<source.length;i++){
             let r = tagStateTransform.transform(source.charAt(i));
             if(r=='W') continue;
             else if(r=='U'){
                 if(i!=source.length-1)
-                    console.log('can not match!');
-                else console.log('exit');
+                    callback('can not match!');
+                else {
+                    callback(result);
+                }
                 break;
             }
             else{
@@ -29,9 +32,9 @@ class Parser{
                             r=keyword.toUpperCase();
                         }
                     }
-                    console.log(str+'  < '+r+' , '+value+' >');
-                }else if(r=='NUM'||r=='OCT'||r=='HEX') console.log(str+'  < '+r+' , '+str+' >');
-                else console.log(str+'  < '+r+', _ >');
+                    result+=str+'——< '+r+', '+value+' >\n';
+                }else if(r=='NUM'||r=='OCT'||r=='HEX') result += str+'——< '+r+' , '+str+' >\n';
+                else result+=str+'——< '+r+', _ >\n';
                 tagStateTransform.reset();
             }
         }

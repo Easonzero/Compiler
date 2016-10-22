@@ -1,5 +1,6 @@
 {
-  "name"    : "compiler",
-  "version" : "0.1.0",
-  "main"    : "main.js"
+  "name": "compiler",
+  "version": "0.1.0",
+  "main": "app.js",
+  "dependencies": {}
 }

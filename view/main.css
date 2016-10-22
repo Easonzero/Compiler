@@ -1,0 +1,20 @@
+.mdl-textfield{
+    position:absolute;
+    left:50%; top:50%;
+    width:88%;
+    transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+}
+
+.float{
+    position:fixed;
+    left:80%; top:80%;
+}
+
+.textfield{
+    position:absolute;
+    left:50%; top:5%;
+    width:88%;
+    transform:translate(-50%);
+    -webkit-transform:translate(-50%);
+}

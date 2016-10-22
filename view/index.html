@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title" style="-webkit-app-region: drag">编译器GUI</span>
+            <div class="mdl-layout-spacer" style="-webkit-app-region: drag">&nbsp by.王祎</div>
+            <button id="demo-menu-lower-right"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">more_vert</i>
+            </button>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="demo-menu-lower-right">
+                <li class="mdl-menu__item" id="back">退出</li>
+            </ul>
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">测试用例</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab">Token输出</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab">状态转换图</a>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">分析器选项</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">词法分析器</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" type="text" rows= "20" maxrows="30" id="holder">请拖入测试文件。</textarea>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored float" id="run">
+                <i class="material-icons">code</i>
+            </button>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div class="page-content">
+                <div class="mdl-typography--body-2 textfield" id="tf-token"></div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div class="page-content">
+                <div class="mdl-typography--body-2 textfield" id="tf-transform"></div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+<script defer src="main.js"></script>
+</html>
