@@ -1,10 +1,10 @@
 exports.token = {
-  //    0   ,  1  ,  2  ,   3 , 4 ,   5 ,   6 ,   7 ,   8 ,   9 ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16  ,  17 ,  18 ,
+  //    0   ,  1  ,  2  , 3 ,   4 ,   5 ,   6 ,   7 ,   8 ,   9 ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16  ,  17 , 18 ,
   S:['start','IDN','NUM','W','ASG','ADD','INC','ADE','SUB','DEC','SUE','CAL','CAE','DIV','DIE','BAND','AND','BOR','OR',
   //    19  , 20  ,   21 ,  22  ,  23  ,   24 ,   25 ,   26 ,  27 ,  28 ,  29 ,  30 ,   31 ,  32 ,   33 ,  34  , 35, 36,
-     'NOT'  , 'NE','MORE','MOEQ','LESS','LEEQ','SLP','SRP', 'LP', 'RP', 'MLP','MRP','SEMI','STR','POINT','ANNO','W','W',
+     'NOT'  , 'NE','MORE','MOEQ','LESS','LEEQ','SLP','SRP', 'LP', 'RP', 'MLP','MRP','SEMI','STR','POINT','ANNO','W35','W36',
   // 37 , 38 , 39  ,  40 , 41, 42
-     'W','EQ','OCT','HEX','W','W'
+     'W','EQ','OCT','HEX','W41','W42'
   ],
   I:[
     ['1','2','3','4','5','6','7'],                                                                                        //0

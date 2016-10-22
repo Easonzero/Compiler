@@ -3,13 +3,14 @@
  */
 const {ipcMain} = require('electron');
 const {close} = require('./controller/base-controller');
-const {run} = require('./controller/compiler-controller');
+const {token,transGraph} = require('./controller/compiler-controller');
 /**
  * Created by eason on 6/2/16.
  */
 let routes = {
     'close':close,
-    'run':run
+    'token':token,
+    'transGraph':transGraph
 };
 
 module.exports = (win) => {

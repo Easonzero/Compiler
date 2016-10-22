@@ -3,6 +3,10 @@
  */
 const parser = require('../compiler/parser');
 
-exports.run = function(req,callback){
+exports.token = function(req,callback){
     parser.parseCi(req.msg,'DFA',callback);
+};
+
+exports.transGraph = function(req,callback){
+    parser.transGraph(callback);
 };

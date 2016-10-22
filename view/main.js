@@ -8,6 +8,7 @@ let holder = document.getElementById('holder');
 let back = document.getElementById('back');
 let run = document.getElementById('run');
 let tf_token = document.getElementById('tf-token');
+let tf_transform = document.getElementById('tf-transform');
 
 holder.ondragover = function () {
     return false;
@@ -31,14 +32,17 @@ back.onclick = function(e){
 };
 
 run.onclick = function(e){
-    console.log(holder.value);
-    ipcRenderer.send('run',holder.value);
+    ipcRenderer.send('token',holder.value);
+    ipcRenderer.send('transGraph');
 };
 
 ipcRenderer.on( 'reply', (event, result)=>{
     switch(result.e){
-        case 'run':
+        case 'token':
             tf_token.innerText = result.m;
+            break;
+        case 'transGraph':
+            tf_transform.innerText = result.m;
             break;
     }
 });
