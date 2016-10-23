@@ -44,7 +44,7 @@ class Parser{
         let result = '';
         for(let index_s in Token.T){
             for(let index_i in Token.T[index_s]){
-                result += Token.S[index_i]+' + [ '+Token.I[index_i]+' ] = '+Token.S[Token.T[index_s][index_i]]+'\n';
+                result += Token.S[index_s]+' + [ '+Token.I[index_i]+' ] = '+Token.S[Token.T[index_s][index_i]]+'\n';
             }
         }
         callback(result);
