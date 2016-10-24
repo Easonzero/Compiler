@@ -32,7 +32,7 @@ back.onclick = function(e){
 };
 
 run.onclick = function(e){
-    let s = holder.value.replace(/\ +/g,'').replace(/[\r\n]/g,'')+'\n';
+    let s = holder.value.replace(/[\r\n]/g,'')+'\n';
     ipcRenderer.send('token',s);
     ipcRenderer.send('transGraph');
 };
