@@ -4,7 +4,7 @@
 运行需要自行搭建node环境和npm，全局安装好electron。下面展示linux下如何使用：
 
 >sudo apt-get install nodejs(node其实不建议这么安装，建议到官网下载)  
-sudo apt-get install npm
+sudo apt-get install npm  
 sudo npm install electron -g
 
 如上环境就算都弄好了，现在展示如何运行项目：
