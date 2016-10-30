@@ -4,13 +4,58 @@
     <meta charset="UTF-8">
     <title>编译器</title>
     <link href="http://cdn.bootcss.com/angular-material/1.1.1/angular-material.css" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="http://cdn.bootcss.com/angular-material/1.1.1/angular-material.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
 </head>
-<body ng-controller="myCtrl">
-{{firstName + " " + lastName}}
+<body ng-controller="appCtrl">
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+            <md-icon>menu</md-icon>
+        </md-button>
+        <h2 style="-webkit-app-region: drag" flex>
+            <span>编译器v1.0by王祎</span>
+        </h2>
+        <md-menu md-position-mode="target-right target" >
+            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-menu-origin>more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="1" >
+                <md-button ng-click="">退出</md-button>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
+<md-content>
+    <ng-view></ng-view>
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">选择分析器</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <md-list ng-cloak>
+                <md-list-item ng-click="" href="#/word">
+                    词法分析器
+                </md-list-item>
+                <md-divider></md-divider>
+                <md-list-item ng-click="" href="#/grammer">
+                    文法分析器
+                </md-list-item>
+                <md-divider></md-divider>
+            </md-list>
+        </md-content>
+
+    </md-sidenav>
+
+</md-content>
 </body>
-<script src="app/app.js"></script>
+<script src="app.js"></script>
 </html>
