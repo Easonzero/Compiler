@@ -1,14 +1,17 @@
 /**
  * Created by eason on 16-10-22.
  */
+window.$ = require('jquery');
 const fs = require('fs');
 const {ipcRenderer} = require('electron');
 
-let holder = document.getElementById('holder');
-let back = document.getElementById('back');
-let run = document.getElementById('run');
-let tf_token = document.getElementById('tf-token');
-let tf_transform = document.getElementById('tf-transform');
+let holder = $('#holder');
+let back = $('#back');
+let run = $('#run');
+let tf_token = $('#tf-token');
+let tf_transform = $('#tf-transform');
+let bt_cifa = $('#cifa');
+let bt_wenfa = $('#wenfa');
 
 holder.ondragover = function () {
     return false;
@@ -27,23 +30,37 @@ holder.ondrop = function (e) {
     return false;
 };
 
-back.onclick = function(e){
-    ipcRenderer.send('close');
-};
+bt_cifa.click((e)=>{
+    $('#content--wen').addClass('disappear');
+    $('#tab--wen').addClass('disappear');
+    $('#content--ci').removeClass('disappear');
+    $('#tab--ci').removeClass('disappear');
+});
 
-run.onclick = function(e){
+bt_wenfa.click((e)=>{
+    $('#content--ci').addClass('disappear');
+    $('#tab--ci').addClass('disappear');
+    $('#content--wen').removeClass('disappear');
+    $('#tab--wen').removeClass('disappear');
+});
+
+back.click((e)=>{
+    ipcRenderer.send('close');
+});
+
+run.click((e)=>{
     let s = holder.value.replace(/[\r\n]/g,'')+'\n';
     ipcRenderer.send('token',s);
     ipcRenderer.send('transGraph');
-};
+});
 
 ipcRenderer.on( 'reply', (event, result)=>{
     switch(result.e){
         case 'token':
-            tf_token.innerText = result.m;
+            tf_token.text(result.m);
             break;
         case 'transGraph':
-            tf_transform.innerText = result.m;
+            tf_transform.text(result.m);
             break;
     }
 });

@@ -17,19 +17,17 @@ class StateTransform{
     }
 
     transform(i){
-        for(let I in this.input){
-            for(let _i of this.input[I]){
-                if(_i === i&&this.transition[this.current]&&this.transition[this.current][I]){
+        for(let I=0;I<this.input.length;I++){
+            for(let _i=0;_i<this.input[I].length;_i++){
+                if(this.input[I][_i] === i&&this.transition[this.current]&&this.transition[this.current][I]){
                     this.current = this.transition[this.current][I];
                     return 'W';
                 }
             }
         }
 
-        for(let f of this.final){
-            if(f == this.current){
-                return this.states[this.current];
-            }
+        if(-1 != this.final.indexOf(this.current)){
+            return this.states[this.current];
         }
 
         return 'U';
