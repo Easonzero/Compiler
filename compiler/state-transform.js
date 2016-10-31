@@ -36,17 +36,6 @@ class StateTransform{
     reset(){
         this.current = this.start;
     }
-
-    // closure(T){
-    //     let stack = [],cT = [];
-    //     for(let t of T){
-    //         stack.push(t);
-    //         cT.push(t);
-    //     }
-    //     while(stack.length!==0){
-    //         let t = stack.pop();
-    //     }
-    // }
 }
 
 module.exports = StateTransform;

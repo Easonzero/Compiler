@@ -1,0 +1,22 @@
+table, th , td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+}
+table .data{
+    word-break: break-all;
+    word-wrap: normal;
+    white-space:pre-wrap;
+}
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+table{
+    width:60%;
+    position:relative;
+    left:50%;
+    transform:translate(-50%,20px);;
+}

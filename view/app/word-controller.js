@@ -4,9 +4,10 @@
 const fs = require('fs');
 const {ipcRenderer} = require('electron');
 
-module.exports = function($scope){
+module.exports = function($scope,$mdToast){
     $scope.run = function(){
-        let s = $scope.test.replace(/[\r\n]/g,'')+'\n';
+        let s = $scope.test;
+        if(s.charAt(s.length-1)!='\n') s = s+'\n';
         ipcRenderer.send('token',s);
         ipcRenderer.send('transGraph');
     };
@@ -24,6 +25,12 @@ module.exports = function($scope){
         switch(result.e){
             case 'token':
                 $scope.token = result.m;
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('编译器分析完成！')
+                        .position('right start')
+                        .hideDelay(500)
+                );
                 break;
             case 'transGraph':
                 $scope.graph = result.m;

@@ -2,6 +2,7 @@
  * Created by eason on 16-10-29.
  */
 const Formula = require('./formula');
+const {dialog} = require('electron');
 
 class GrammerTree{
     constructor(wenfa){
@@ -16,17 +17,19 @@ class GrammerTree{
         //所有符号集
         this.allSymbol = [];
         //first集的判断
-        this.judgefirst = {addNewSet:addNewSet};
+        this.judgefirst = {};
         //first集
-        this.firstSet = {addNewSet:addNewSet};
+        this.firstSet = {};
         //右部first集
-        this.rightFirst = {addNewSet:addNewSet};
+        this.rightFirst = {};
         //follow集判断
-        this.judgefollow = {addNewSet:addNewSet};
+        this.judgefollow = {};
         //follow集
-        this.followSet = {addNewSet:addNewSet};
+        this.followSet = {};
         //预测分析表
-        this.M = {addNewSet:addNewSet};
+        this.M = {};
+        //分析结构
+        this.result = {};
         //readFormula
 
         for (let i=0;i < wenfa.length;i++){
@@ -88,7 +91,7 @@ class GrammerTree{
             let key = this.allSymbol[i];
             if (!this.judgefirst[key]){
                 //加入FIRST集
-                this.firstSet.addNewSet(key,this.getFirst(key));
+                this.firstSet[key]=this.getFirst(key);
             }
         }
         //初始化每个非终结符号的follow集
@@ -119,12 +122,10 @@ class GrammerTree{
             let key_formula = this.formulas[i];
             if (key_formula.getLeft()==key){
                 if (-1 != this.terSymbols.indexOf(key_formula.getRightIndex(0))){
-                    //如果公式右侧第一个字符是终结符，就把这个终结符加到FIRST集中
                     first.addNewtersymbol(key_formula.getRightIndex(0));
                     continue;
                 }
                 if (0 == key_formula.getRight().localeCompare("@")){
-                    //如果公式右侧为@空，则把右侧@加入FIRST集中
                     first.addNewtersymbol("@");
                     continue;
                 }
@@ -153,7 +154,6 @@ class GrammerTree{
                     }
                 }
                 if (index === this.formulas[i].getRigthsize()){
-                    //console.log(key_formula.getLeft() + ":" + first);
                     first.push("@");
                 }
 
@@ -190,7 +190,6 @@ class GrammerTree{
                             }
                             //addall
                             for (let m = 0; m < this.followSet[f_formula.getLeft()].length; m++){
-//								follow[m] = this.followSet[f_formula.getLeft()][m];
                                 follow.addNewtersymbol(this.followSet[f_formula.getLeft()][m]);
                             }
                         }
@@ -204,7 +203,6 @@ class GrammerTree{
                                 }
                                 //addall
                                 for (let m = 0; m < this.followSet[f_formula.getLeft()].length; m++){
-//									follow[m] = this.followSet[f_formula.getLeft()][m];
                                     follow.addNewtersymbol(this.followSet[f_formula.getLeft()][m]);
                                 }
                             }
@@ -215,7 +213,6 @@ class GrammerTree{
                                 let first_temp = this.firstSet[f_formula.getRightIndex(j + 1)];
                                 //addall
                                 for (let m = 0; m < first_temp.length; m++){
-//									temphash[m] = first_temp[m];
                                     temphash.addNewtersymbol(first_temp[m]);
                                 }
                                 let indexoftemp = temphash.indexOf("@");
@@ -225,7 +222,6 @@ class GrammerTree{
                                 }
                                 //addall
                                 for (let m = 0; m < temphash.length; m++){
-//									follow[m] = temphash[m];
                                     follow.addNewtersymbol(temphash[m]);
                                 }
                             }
@@ -298,15 +294,17 @@ class GrammerTree{
     }
     //开始分析
     startAnalyse(source){
+        if(source.length===0) return;
         let stack = [];
         let keys = [];
         for (let key in this.M){
-            if (key == "addNewSet") continue;
             keys.push(key);
         }
         let X, index = 0,row = 1,col = 1;
         stack.push("#");
         stack.push(this.startSymbol);
+        this.result={value:this.startSymbol,children:[],open:true};
+        let p = this.result;
         let flag = true;
         let exit = false;
         let f;
@@ -316,21 +314,36 @@ class GrammerTree{
                 if(index<source.length) continue;
                 else break;
             }else if(source[index][0]=='ENTER') {
-                index++;
-                row++;
-                col = 1;
+                index++;row++;col = 1;
                 if(index<source.length) continue;
                 else break;
             }
             X = stack.pop();
             if (-1 != this.terSymbols.indexOf(X)){
                 if (X==source[index][0]){
-                    index++;
-                    col++;
+                    p.value=`<${source[index][0]},${source[index][1]}>`;
+                    p.open=false;
+                    while(!p.open){
+                        if(p.parent){
+                            let rindex = p.parent.children.indexOf(p);
+                            if(rindex != p.parent.children.length-1) p = p.parent.children[rindex+1];
+                            else {
+                                p = p.parent;
+                                p.open=false;
+                            }
+                        }
+                        else break;
+                    }
+                    index++;col++;
                     if (index == source.length) break;
                 }
                 else{
-                    console.log(`在第${col==1?row-1:row}行发生错误`);
+                    dialog.showMessageBox({
+                        type:'error',
+                        title:'文法解析器报错',
+                        message:`Error at Line [${col==1?row-1:row}]:[Require '${X}' But '${source[index][1]}(${source[index][0]})']`,
+                        buttons:[]
+                    });
                     return false;
                 }
             }
@@ -339,24 +352,50 @@ class GrammerTree{
                     flag = false;
                 }
                 else{
-                    console.log('意外的终止符');
+                    dialog.showMessageBox({
+                        type:'error',
+                        title:'文法解析器报错',
+                        message:`Error at Line [${col==1?row-1:row}]:[Not Expected Stopping]`,
+                        buttons:[]
+                    });
                     return false;
                 }
             }
             else{
+                exit = false;
                 if(this.M[X+source[index][0]]){
                     f = this.M[X+source[index][0]];
                     exit = true;
                 }
                 if (exit){
                     if(f.getRight()=='@'){
+                        p.open=false;
+                        while(!p.open){
+                            if(p.parent){
+                                let rindex = p.parent.children.indexOf(p);
+                                if(rindex != p.parent.children.length-1) p = p.parent.children[rindex+1];
+                                else {
+                                    p = p.parent;
+                                    p.open=false;
+                                }
+                            }
+                            else break;
+                        }
                         continue;
                     }
                     for (let j = f.getRigthsize() - 1; j >= 0; j--){
                         stack.push(f.getRightIndex(j));
+                        p.children.push({value:f.getRightIndex(f.getRigthsize()-1-j),parent:p,children:[],open:true});
                     }
+                    if(p.children.length!=0)
+                        p=p.children[0];
                 }else{
-                    console.log(`在第${col==1?row-1:row}行发生错误`);
+                    dialog.showMessageBox({
+                        type:'error',
+                        title:'文法解析器报错',
+                        message:`Error at Line [${col==1?row-1:row}]:[Not Expected '${source[index][1]}']`,
+                        buttons:[]
+                    });
                     return false;
                 }
             }
@@ -393,9 +432,5 @@ Array.prototype.addNewnosymbol = function(element){
     this.push(element);
     return true;
 };
-
-function addNewSet(key,value){
-    this[key] = value;
-}
 
 module.exports = GrammerTree;

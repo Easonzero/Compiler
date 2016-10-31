@@ -2,6 +2,7 @@
  * Created by eason on 16-10-30.
  */
 const wordController = require('./word-controller');
+const grammerController = require('./grammer-controller')
 angular.module('display').config(function ($routeProvider) {
     $routeProvider.
     when('/', {
@@ -14,7 +15,7 @@ angular.module('display').config(function ($routeProvider) {
     }).
     when('/grammer', {
         templateUrl: './app/grammer-parse.html',
-        controller: function(){}
+        controller: grammerController
     }).otherwise({redirectTo:'/'});
 });
 
