@@ -27,7 +27,7 @@
                 <md-icon md-menu-origin>more_vert</md-icon>
             </md-button>
             <md-menu-content width="1" >
-                <md-button ng-click="">退出</md-button>
+                <md-button ng-click="back()">退出</md-button>
             </md-menu-content>
         </md-menu>
     </div>
@@ -42,11 +42,11 @@
         </md-toolbar>
         <md-content layout-padding>
             <md-list ng-cloak>
-                <md-list-item ng-click="" href="#/word">
+                <md-list-item ng-click="toggleLeft()" href="#/word">
                     词法分析器
                 </md-list-item>
                 <md-divider></md-divider>
-                <md-list-item ng-click="" href="#/grammer">
+                <md-list-item ng-click="toggleLeft()" href="#/grammer">
                     文法分析器
                 </md-list-item>
                 <md-divider></md-divider>

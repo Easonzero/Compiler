@@ -1,5 +1,3 @@
 .idea
 .log
 node_modules
-view/*.js
-view/app/*.js

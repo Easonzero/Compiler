@@ -5,21 +5,24 @@
             <md-input-container class="md-block" flex>
                 <div style="min-height:460px">
                     <label>请拖入测试用例</label>
-                    <textarea md-maxlength="150" rows="15" md-select-on-focus></textarea>
+                    <textarea rows="15" md-select-on-focus ng-model="test" ng-drop="readFile($event)"></textarea>
                 </div>
             </md-input-container>
+            <md-button class="md-fab md-primary" style="position:fixed;right:10%;top:75%;" ng-click="run()">
+                <md-icon>android</md-icon>
+            </md-button>
         </md-tab-body>
     </md-tab>
     <md-tab id="tab2">
         <md-tab-label>Token输出</md-tab-label>
         <md-tab-body>
-            <div style="min-height:490px"></div>
+            <div style="min-height:490px" ng-model="token">{{token}}</div>
         </md-tab-body>
     </md-tab>
     <md-tab id="tab3">
         <md-tab-label>状态转换图</md-tab-label>
         <md-tab-body>
-            <div style="min-height:490px"></div>
+            <div style="min-height:490px" ng-model="graph">{{graph}}</div>
         </md-tab-body>
     </md-tab>
 </md-tabs>
