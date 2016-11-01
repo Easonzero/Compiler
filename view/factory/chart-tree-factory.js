@@ -5,13 +5,15 @@ angular.module('chart').factory('TreeChartFactory',function($window){
     let d3 = $window.d3;
     let factory = {};
 
-    factory.render = function(element,root){
+    factory.render = function(element,root,height,width){
         d3.select(element).selectAll('*').remove();
 
-        let svg = d3.select(element).append("svg").attr("height", 480);
+        let svg = d3.select(element).append("svg")
+            .attr("height", height-20)
+            .attr("width",width-20);
 
         let tree = d3.tree()
-            .size([480, 500]);
+            .size([height-30, width-30]);
 
         let _node = d3.hierarchy(root);
         tree(_node);
@@ -24,8 +26,8 @@ angular.module('chart').factory('TreeChartFactory',function($window){
             .attr("class", "link")
             .attr("d", function diagonal(d) {
                 return "M" + d.target.y + "," + d.target.x
-                    + "C" + (d.source.y + 100) + "," + d.target.x
-                    + " " + (d.source.y + 100) + "," + d.source.x
+                    + "C" + (d.source.y/2 + d.target.y/2) + "," + d.target.x
+                    + " " + (d.source.y/2 + d.target.y/2) + "," + d.source.x
                     + " " + d.source.y + "," + d.source.x;
             });
 

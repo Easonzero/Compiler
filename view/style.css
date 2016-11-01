@@ -14,12 +14,12 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
     background-color: #ffffff;
 }
-table, svg{
-    width:84%;
+table,svg{
     position:relative;
     left:50%;
-    transform:translate(-50%,20px);;
+    transform:translate(-50%,20px);
 }
+table{width:84%;}
 
 .node circle {
     fill: #999;

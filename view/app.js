@@ -20,6 +20,21 @@ app.controller('appCtrl', ($scope,$mdSidenav)=>{
     };
 });
 
+app.directive('ngResize', ['$window', function($window) {
+    return {
+        restrict : "A",
+        link: function(scope, elem, attrs) {
+            scope.onResize = function(element,precent) {
+                element.css('height',($window.innerHeight-96)*precent+'px');
+            };
+            scope.onResize(elem,attrs.hprecent);
+            angular.element($window).bind('resize', function() {
+                scope.onResize(elem,attrs.hprecent);
+            });
+        }
+    }
+}]);
+
 app.directive("ngDrop", function($parse) {
     return {
         restrict : "A",
@@ -42,7 +57,7 @@ app.directive("ngTreeChart", function($window,TreeChartFactory) {
         link: function(scope, element, attrs) {
             scope.$watch('chartData', function(nv){
                 if(!nv) return;
-                TreeChartFactory.render(element[0],nv);
+                TreeChartFactory.render(element[0],nv,$window.innerHeight-96,$window.innerWidth);
             });
         }
     };

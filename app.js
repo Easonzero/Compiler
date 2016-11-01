@@ -10,7 +10,7 @@ let win;
 
 function createWindow() {
 
-    win = new BrowserWindow({width: 800, height: 600,frame: false});
+    win = new BrowserWindow({width: 800, height: 620,frame: false,minHeight:580,minWidth:300});//bar:48
 
     win.loadURL(`file://${__dirname}/view/index.html`);
 
@@ -20,6 +20,10 @@ function createWindow() {
 
     routes(win);
 }
+
+app.on('resize',()=>{
+   console.log(win.getSize())
+});
 
 app.on('ready', createWindow);
 

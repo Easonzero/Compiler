@@ -2,7 +2,7 @@
     <md-tab id="tab1">
         <md-tab-label>文法分析结果</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="grammerResult" id="test">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="grammerResult" id="test">
                 <ng-tree-chart chart-data="grammerResult"></ng-tree-chart>
             </div>
         </md-tab-body>
@@ -10,7 +10,7 @@
     <md-tab id="tab2">
         <md-tab-label>First输出</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="first">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="first">
                 <table>
                     <tr ng-repeat="x in first">
                         <td>{{ $index + 1 }}</td>
@@ -24,7 +24,7 @@
     <md-tab id="tab3">
         <md-tab-label>Follow输出</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="follow">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="follow">
                 <table>
                     <tr ng-repeat="x in follow">
                         <td>{{ $index + 1 }}</td>
@@ -38,7 +38,7 @@
     <md-tab id="tab4">
         <md-tab-label>预测分析表</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="predictMap">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="predictMap">
                 <table>
                     <tr ng-repeat="x in predictMap">
                         <td>{{ $index + 1 }}</td>

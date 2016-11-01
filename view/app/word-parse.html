@@ -2,21 +2,23 @@
     <md-tab id="tab1">
         <md-tab-label>测试用例</md-tab-label>
         <md-tab-body>
-            <md-input-container class="md-block" flex>
-                <div style="height:460px">
-                    <label>请拖入测试用例</label>
-                    <textarea rows="15" md-select-on-focus ng-model="test" ng-drop="readFile($event)"></textarea>
-                </div>
-            </md-input-container>
-            <md-button class="md-fab md-accent md-fab-bottom-right" ng-click="run()">
-                Run
-            </md-button>
+            <div  ng-resize hprecent="0.93">
+                <md-input-container class="md-block">
+                    <div>
+                        <label>请拖入测试用例</label>
+                        <textarea rows="17" md-select-on-focus ng-model="test" ng-drop="readFile($event)"></textarea>
+                    </div>
+                </md-input-container>
+                <md-button class="md-fab md-accent md-fab-bottom-right" ng-click="run()">
+                    Run
+                </md-button>
+            </div>
         </md-tab-body>
     </md-tab>
     <md-tab id="tab2">
         <md-tab-label>Token输出</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="token">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="token">
                 <table>
                     <tr ng-repeat="x in token">
                         <td>{{ $index + 1 }}</td>
@@ -30,13 +32,12 @@
     <md-tab id="tab3">
         <md-tab-label>状态转换图</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="graph">
+            <div style="overflow-y:scroll" ng-resize hprecent="1" ng-model="graph">
                 <table>
                     <tr ng-repeat="x in graph">
                         <td>{{ $index + 1 }}</td>
                         <td class="data">{{ x }}</td>
                     </tr>
-
                 </table>
             </div>
         </md-tab-body>
