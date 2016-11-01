@@ -8,7 +8,6 @@ module.exports = function($scope){
     ipcRenderer.send('first');
     ipcRenderer.send('follow');
     ipcRenderer.send('predictMap');
-
     ipcRenderer.on( 'reply', (event, result)=>{
         switch(result.e){
             case 'grammerResult':

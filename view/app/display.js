@@ -2,7 +2,8 @@
  * Created by eason on 16-10-30.
  */
 const wordController = require('./word-controller');
-const grammerController = require('./grammer-controller')
+const grammerController = require('./grammer-controller');
+
 angular.module('display').config(function ($routeProvider) {
     $routeProvider.
     when('/', {

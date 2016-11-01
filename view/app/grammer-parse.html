@@ -2,8 +2,8 @@
     <md-tab id="tab1">
         <md-tab-label>文法分析结果</md-tab-label>
         <md-tab-body>
-            <div style="height:490px;overflow-y:scroll" ng-model="grammerResult">
-                {{grammerResult}}
+            <div style="height:490px;overflow-y:scroll" ng-model="grammerResult" id="test">
+                <ng-tree-chart chart-data="grammerResult"></ng-tree-chart>
             </div>
         </md-tab-body>
     </md-tab>

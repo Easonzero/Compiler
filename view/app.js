@@ -1,11 +1,14 @@
 /**
  * Created by eason on 16-10-30.
  */
+angular.module('chart',[]);
+angular.module('display',['ngRoute','ngMaterial']);
+let app = angular.module('app', ['ngMaterial','display','chart']);
+
+require('./app/display');
+require('./factory/chart-tree-factory');
 const {ipcRenderer} = require('electron');
 const fs = require('fs');
-
-angular.module('display',['ngRoute','ngMaterial']);
-let app = angular.module('app', ['ngMaterial','display']);
 
 app.controller('appCtrl', ($scope,$mdSidenav)=>{
     $scope.toggleLeft = (e)=>{
@@ -32,4 +35,15 @@ app.directive("ngDrop", function($parse) {
     };
 });
 
-require('./app/display');
+app.directive("ngTreeChart", function($window,TreeChartFactory) {
+    return {
+        restrict : "EA",
+        scope:{chartData:'=chartData'},
+        link: function(scope, element, attrs) {
+            scope.$watch('chartData', function(nv){
+                if(!nv) return;
+                TreeChartFactory.render(element[0],nv);
+            });
+        }
+    };
+});

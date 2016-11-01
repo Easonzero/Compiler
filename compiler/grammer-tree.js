@@ -303,7 +303,7 @@ class GrammerTree{
         let X, index = 0,row = 1,col = 1;
         stack.push("#");
         stack.push(this.startSymbol);
-        this.result={value:this.startSymbol,children:[],open:true};
+        this.result={name:this.startSymbol,children:[],open:true};
         let p = this.result;
         let flag = true;
         let exit = false;
@@ -321,7 +321,7 @@ class GrammerTree{
             X = stack.pop();
             if (-1 != this.terSymbols.indexOf(X)){
                 if (X==source[index][0]){
-                    p.value=`<${source[index][0]},${source[index][1]}>`;
+                    p.name=`<${source[index][0]},${source[index][1]}>`;
                     p.open=false;
                     while(!p.open){
                         if(p.parent){
@@ -385,7 +385,7 @@ class GrammerTree{
                     }
                     for (let j = f.getRigthsize() - 1; j >= 0; j--){
                         stack.push(f.getRightIndex(j));
-                        p.children.push({value:f.getRightIndex(f.getRigthsize()-1-j),parent:p,children:[],open:true});
+                        p.children.push({name:f.getRightIndex(f.getRigthsize()-1-j),parent:p,children:[],open:true});
                     }
                     if(p.children.length!=0)
                         p=p.children[0];
