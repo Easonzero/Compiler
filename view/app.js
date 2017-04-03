@@ -25,7 +25,7 @@ app.directive('ngResize', ['$window', function($window) {
         restrict : "A",
         link: function(scope, elem, attrs) {
             scope.onResize = function(element,precent) {
-                element.css('height',($window.innerHeight-96)*precent+'px');
+                element.css('height',($window.innerHeight*precent-50)+'px');
             };
             scope.onResize(elem,attrs.hprecent);
             angular.element($window).bind('resize', function() {
